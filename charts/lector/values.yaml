@@ -1,0 +1,16 @@
+# Default values for lector.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 3
+image:
+  repository: 524690225562.dkr.ecr.eu-west-1.amazonaws.com/lector
+  tag: latest-master
+  pullPolicy: Always
+resources:
+  limits:
+    cpu: 400m
+    memory: 140Mi
+  requests:
+    cpu: 100m
+    memory: 140Mi
+imagePullSecrets: awsecr-cred

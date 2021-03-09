@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "lector.fullname" . }}
+  labels:
+    app: {{ template "lector.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "lector.name" . }}
+      release: {{ .Release.Name }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ template "lector.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: hubot
+        image: {{ .Values.image.repository }}:{{ required "A valid image tag is required!" .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: "GOSSERACT_SERVICE_URL"
+          value: "http://ocr.lector.svc.cluster.local:8080/base64"
+        - name: "WKHTMLTOX_SERVICE_URL"
+          value: "http://wkhtmltox.lector.svc.cluster.local:8080/v1/convert"
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+      {{ if .Values.imagePullSecrets -}}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets }}
+      {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ template "lector.name" . }}
+  name: {{ template "lector.name" . }}
+spec:
+  ports:
+  - port: 8000
+    protocol: TCP
+  selector:
+    app: {{ template "lector.name" . }}
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ template "lector.name" . }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ template "lector.name" . }}
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50

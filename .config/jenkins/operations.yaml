@@ -1,0 +1,4 @@
+namespace: "lector"
+releaseName: "lector"
+chartName: "lector"
+chartRepository: "charts" # local folder

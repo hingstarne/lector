@@ -1,0 +1,9 @@
+apiVersion: v1
+description: A Helm chart for Kubernetes
+name: lector
+version: 0.0.1
+keywords:
+  - lector
+maintainers:
+  - name: Freeletics Operations
+    email: operations@freeletics.com
