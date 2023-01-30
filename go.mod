@@ -1,4 +1,4 @@
-module github.com/freeletics/lector
+module github.com/hingstarne/lector
 
 go 1.16
 

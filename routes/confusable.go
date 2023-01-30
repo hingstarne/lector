@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"github.com/freeletics/lector/controllers"
+	"github.com/hingstarne/lector/controllers"
 	"github.com/gofiber/fiber/v2"
 )
 

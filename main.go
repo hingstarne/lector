@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/freeletics/lector/routes"
+	"github.com/hingstarne/lector/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )

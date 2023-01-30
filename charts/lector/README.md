@@ -9,7 +9,7 @@ export AWS_REGION=eu-west-1
 ```
 
 1. Make sure you have your `~/.aws/credentials` exist. But following the instructions here:
-https://github.com/freeletics/fl-cli-tools/blob/master/README.md#prerequisites
+https://github.com/hingstarne/fl-cli-tools/blob/master/README.md#prerequisites
 
 1. Install **helm**:
 https://github.com/kubernetes/helm#install
