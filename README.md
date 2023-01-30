@@ -8,7 +8,7 @@ To test it on your local machine just forward the service to your localhost and 
 Current integration environment access is needed:
 
 ```bash
-kubectl --context i20210203.int.freeletics.com -n lector port-forward service/lector 8000:8000
+kubectl -n lector port-forward service/lector 8000:8000
 ```
 
 Sample payload:
